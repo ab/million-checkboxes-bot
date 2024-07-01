@@ -1,0 +1,18 @@
+- GET https://onemillioncheckboxes.com/api/initial-state
+
+curl -sSf https://onemillioncheckboxes.com/api/initial-state | jq -r .full_state > full-state.txt.base64
+base64 -d full-state.txt.base64 > full-state.bin
+
+
+Client messages:
+- "toggle_bit", {"index": 1234}
+
+Server messages:
+- "batched_bit_toggles": [[1,2,3], [4,5,6]]
+    - presumably one of the lists is toggled on, the other is toggled off
+
+- "full_state": {"full_state": <BASE64>}
+    - full state is 1 million bits in base64
+
+Bits are 1-indexed
+
